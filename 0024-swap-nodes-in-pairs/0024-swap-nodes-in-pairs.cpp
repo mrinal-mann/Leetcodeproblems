@@ -11,14 +11,22 @@
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
-        if(head==NULL||head->next==NULL)  
-        {
-            return head;
+        if(head==NULL || head->next==NULL) return head;
+        ListNode* dummynode=new ListNode(); //keep the returning head node
+        ListNode* prenode; //track the previous node
+        ListNode* current; //track the current node
+        dummynode->next=head;
+        prenode=dummynode;
+        current=head;
+        while(current&&current->next){
+            prenode->next=current->next;
+            current->next=prenode->next->next;
+            prenode->next->next=current;
+            prenode=current;
+            current=current->next;
         }
-        ListNode *temp=head->next;
-        head->next=swapPairs(head->next->next);
-        temp->next=head;
-        return temp;
+        return dummynode->next;  
+        delete dummynode; //delete the memory allocated
     }
-    //this is recurtion method and takes the time and space by O(n)
+    //this is the iterative method its time is O(n) and space is O(1)
 };
