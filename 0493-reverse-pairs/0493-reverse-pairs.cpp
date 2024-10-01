@@ -1,6 +1,5 @@
 class Solution {
 public:
-    int count = 0;
 
     // Function to merge two halves
     void merge(vector<int>& arr, int l, int m, int r) {
@@ -37,7 +36,8 @@ public:
     }
 
     // Function to count reverse pairs
-    void countPairs(vector<int>& arr, int low, int mid, int high) {
+    int countPairs(vector<int>& arr, int low, int mid, int high) {
+        int count=0;
         int right = mid + 1;
         for (int i = low; i <= mid; i++) {
             while (right <= high && arr[i] > 2LL * arr[right]) {
@@ -45,23 +45,23 @@ public:
             }
             count += (right - (mid + 1));
         }
+        return count;
     }
 
     // Merge sort function
-    void mergeSort(vector<int>& arr, int l, int r) {
-        if (l >= r) return;
-        
+    int mergeSort(vector<int>& arr, int l, int r) {
+        int count=0;
+        if (l >= r) return count ;
         int mid = (l + r) / 2;
-
-        mergeSort(arr, l, mid);        // Sort the left half
-        mergeSort(arr, mid + 1, r);    // Sort the right half
-        countPairs(arr, l, mid, r);    // Count reverse pairs
+        count+=mergeSort(arr, l, mid);        // Sort the left half
+        count+=mergeSort(arr, mid + 1, r);    // Sort the right half
+        count+=countPairs(arr, l, mid, r);    // Count reverse pairs
         merge(arr, l, mid, r);         // Merge the two halves
+        return count;
     }
 
     // Main function to calculate reverse pairs
     int reversePairs(vector<int>& nums) {
-        mergeSort(nums, 0, nums.size() - 1);
-        return count;
+       return mergeSort(nums, 0, nums.size() - 1);
     }
 };
