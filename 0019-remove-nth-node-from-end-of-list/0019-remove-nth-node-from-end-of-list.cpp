@@ -10,44 +10,38 @@
  */
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
-        ListNode* newhead = NULL;
-        while (head != NULL) {
-            ListNode* next = head->next;
-            head->next = newhead;
-            newhead = head;
-            head = next;
-        }
-        return newhead;
-    }
-
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        if (!head) return head; // Handle empty list case
-        
-        // Step 1: Reverse the list
-        ListNode* reversedHead = reverseList(head);
-        
-        // Step 2: Remove the nth node from the front of the reversed list
-        if (n == 1) {
-            // Special case: removing the first node
-            ListNode* newHead = reversedHead->next;
-            delete reversedHead; // Free the memory of the removed node
-            // Step 3: Reverse the list back to original
-            return reverseList(newHead);
-        }
-        
-        // General case: remove the nth node
-        ListNode* temp = reversedHead;
-        for (int i = 1; i < n - 1; ++i) {
+        if (head == NULL) return NULL;  // Handle empty list case
+
+        // Step 1: Count the total number of nodes in the list
+        int count = 0;
+        ListNode* temp = head;
+        while (temp) {
+            count++;
             temp = temp->next;
         }
-        
-        // Now temp points to (n-1)th node, so remove temp->next (nth node)
-        ListNode* nodeToDelete = temp->next;
+
+        // Step 2: Check if we need to remove the head node
+        if (count == n) {
+            ListNode* node = head;
+            head = head->next;
+            delete node;
+            return head;  // Return new head after deleting the old head
+        }
+
+        // Step 3: Traverse to the node just before the one to delete
+        int rem = count - n;  // L - N + 1
+        temp = head;
+        while (rem > 1) {  // Stop at the node just before the one to delete
+            rem--;
+            temp = temp->next;
+        }
+
+        // Step 4: Delete the nth node from the end
+        ListNode* node = temp->next;
         temp->next = temp->next->next;
-        delete nodeToDelete; // Free the memory of the removed node
-        
-        // Step 3: Reverse the list back to original order
-        return reverseList(reversedHead);
+        delete node;
+
+        return head;  // Return the modified list
     }
 };
