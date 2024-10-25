@@ -12,7 +12,7 @@ public:
         if (!headA || !headB) return NULL;
         ListNode *temp1=headA;
         ListNode *temp2=headB;
-        while(temp1!=temp2){
+        while(temp1!=temp2){ //it will rerun again until temp1==temp2
             temp1=temp1?temp1->next:headA;
             temp2=temp2?temp2->next:headB;
         }
