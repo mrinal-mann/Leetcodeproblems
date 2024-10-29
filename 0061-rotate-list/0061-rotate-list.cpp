@@ -27,7 +27,7 @@ public:
         k=k%size;
         temp=head;
         if(k==0) return head;
-        for(int i=1;i<=size-k-1;i++){
+        for(int i=1;i<size-k;i++){
             temp=temp->next;
             
         }
