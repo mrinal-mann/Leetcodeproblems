@@ -27,7 +27,7 @@ public:
             if (s[j] != ' ') {  // Non-space character
                 if (i != 0) s[i++] = ' ';  // Add single space if it's not the first word
                 while (j < n && s[j] != ' ') {
-                    s[i++] = s[j++];
+                    s[i++] = s[j++]; //shifting the words
                 }
             }
         }
