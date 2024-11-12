@@ -8,10 +8,10 @@ public:
 
         // Step 2: Reverse each word within the reversed string
         int start = 0, end = 0;
-        while (end < n) {
+        while (start < n) {
             // Find the start of the word
             while (start < n && s[start] == ' ') start++;
-            end = start;
+            end = start+1;
             // Find the end of the word
             while (end < n && s[end] != ' ') end++;
             
