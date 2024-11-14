@@ -7,7 +7,7 @@ public:
         string prefix = strs[0];
         
         // Compare the prefix with each string in the array
-        for (int i = 1; i < strs.size(); i++) {
+        for (int i = 0; i < strs.size(); i++) {
             // Reduce the prefix length until it matches the start of strs[i]
             while (strs[i].find(prefix) != 0) {
                 prefix = prefix.substr(0, prefix.size() - 1);
